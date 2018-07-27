@@ -41,18 +41,23 @@ public class MainActivity extends AppCompatActivity {
             if ((locationGps == null) && (locationNetwork == null)) {
                 textView.append("\nLast Location Unknown");
             } else if ((locationGps != null) && (locationNetwork == null)) {
-                textView.append("\nGPS Location: " + locationGps.toString());
+                textView.append("\nGPS Location: " + locationToString(locationGps));
                 textView.append("\nNetwork Location: Unknown");
             } else if ((locationGps == null) && (locationNetwork != null)) {
                 textView.append("\nGPS Location: Unknown");
-                textView.append("\nNetwork Location: " +  locationNetwork.toString());
+                textView.append("\nNetwork Location: " +  locationToString(locationNetwork));
             } else if ((locationGps != null) && (locationNetwork != null)) {
-                textView.append("\nGPS Location: " + locationGps.toString());
-                textView.append("\nNetwork Location: "  + locationNetwork.toString());
+                textView.append("\nGPS Location: " + locationToString(locationGps));
+                textView.append("\nNetwork Location: "  + locationToString(locationNetwork));
             }
         } catch (SecurityException e) {
             e.printStackTrace();
         }
     }
 
+    private String locationToString(Location loc) {
+        String output = String.format("Time: %d Lat: %f Lon: %f Alt: %f Speed: %f Bearing: %f",
+                loc.getTime(), loc.getLatitude(), loc.getLongitude(), loc.getAltitude(), loc.getSpeed(), loc.getBearing());
+        return output;
+    }
 }

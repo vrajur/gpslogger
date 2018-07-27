@@ -4,7 +4,7 @@
 
     <!-- View background color -->
     <solid
-        android:color="@android:color/transparent" >
+        android:color="#33ffffff" >
     </solid>
 
     <!-- View border color and width -->

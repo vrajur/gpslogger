@@ -5,9 +5,11 @@ import android.location.LocationManager;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 /**
  * Created by vinay on 7/2/18.
@@ -27,6 +29,8 @@ public class MainActivityButtonSetup {
         // Get buttons:
         final Button startButton = (Button) activity.findViewById(R.id.button);
         final Button stopButton = (Button) activity.findViewById(R.id.button2);
+        final ImageButton gpsLocationButton = (ImageButton) activity.findViewById(R.id.imageButton);
+        final ToggleButton hideLogButton = (ToggleButton) activity.findViewById(R.id.toggleButton);
 
         // Set Callbacks:
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +64,6 @@ public class MainActivityButtonSetup {
                 textView.setText("");
             }
         });
-        ImageButton gpsLocationButton = (ImageButton) activity.findViewById(R.id.imageButton);
         gpsLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +71,16 @@ public class MainActivityButtonSetup {
                 activity.requestLocation();
             }
         });
-
+        hideLogButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    textView.setVisibility(View.INVISIBLE);
+                } else {
+                    textView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         // Check permissions:
         if (PermissionsChecker.checkLocationPermissions(activity)) {
             textView.append("\nLocation Permissions Enabled");
